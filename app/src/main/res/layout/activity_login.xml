@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.login.LoginActivity">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="80dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/user"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etEmailId"
+        style="@style/loginEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_14sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_14sdp"
+        android:background="@drawable/login_edit_text_border"
+        android:hint="@string/email_id"
+        android:textColorHint="@color/subTextHint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_image" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etPassword"
+        style="@style/loginEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_14sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_14sdp"
+        android:background="@drawable/login_edit_text_border"
+        android:hint="@string/password"
+        android:textColorHint="@color/subTextHint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etEmailId" />
+<!--
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etPassword"
+        style="@style/loginEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_14sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_14sdp"
+        android:background="@drawable/login_edit_text_border"
+        android:hint="@string/password"
+        android:textColorHint="@color/subTextHint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etEmailId" />-->
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/loginButton"
+        style="@style/Button"
+        android:layout_width="@dimen/buttonWidth"
+        android:layout_height="@dimen/buttonHeight"
+        android:layout_margin="@dimen/_8sdp"
+        android:gravity="start|center_vertical"
+        android:paddingStart="@dimen/_20sdp"
+        android:text="@string/login"
+        android:textSize="@dimen/_10ssp"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etPassword" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/createAccButton"
+        style="@style/CreateAccButton"
+        android:layout_width="@dimen/buttonWidth"
+        android:elevation="@dimen/_20sdp"
+        android:layout_height="@dimen/buttonHeight"
+        android:layout_marginTop="@dimen/_90sdp"
+        android:gravity="start|center_vertical"
+        android:paddingStart="@dimen/_20sdp"
+        android:text="@string/register"
+        android:textSize="@dimen/_10ssp"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

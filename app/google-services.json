@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "424643306914",
+    "project_id": "instragramdemo-2684f",
+    "storage_bucket": "instragramdemo-2684f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:424643306914:android:d3d2f6bd0c00f785ab7efb",
+        "android_client_info": {
+          "package_name": "com.example.instagarmdemo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwhaKbMHFhchddfQ2UwDnK1o5ddIqE_Ew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

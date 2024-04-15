@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.post.PostActivity">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/materialToolBar"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/new_reel"
+            app:titleTextColor="@color/black" />
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/postReel"
+            android:layout_width="@dimen/_300sdp"
+            android:layout_height="@dimen/_120sdp"
+            android:layout_marginTop="@dimen/_40sdp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_reel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/materialToolBar"
+            app:riv_border_color="@color/black"
+            app:riv_border_width="2dip"
+            app:riv_corner_radius="10dip" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/caption"
+            style="@style/loginEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginEnd="@dimen/_14sdp"
+            android:background="@drawable/login_edit_text_border"
+            android:hint="@string/post_hint"
+            android:textColorHint="@color/subTextHint"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/postReel" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:orientation="horizontal"
+            android:padding="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/caption">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/postButton"
+                style="@style/Button"
+                android:layout_width="@dimen/_350sdp"
+                android:layout_height="@dimen/buttonHeight"
+                android:layout_margin="@dimen/_15sdp"
+                android:layout_weight="1"
+                android:paddingStart="@dimen/_20sdp"
+                android:text="@string/share_post" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/cancelButton"
+                style="@style/cancelButton"
+                android:layout_width="@dimen/_350sdp"
+                android:layout_height="@dimen/buttonHeight"
+                android:layout_margin="@dimen/_15sdp"
+                android:layout_weight="1"
+                android:gravity="start|center_vertical"
+                android:paddingStart="@dimen/_20sdp"
+                android:text="@string/share_cancel"
+                app:strokeColor="@color/pink" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

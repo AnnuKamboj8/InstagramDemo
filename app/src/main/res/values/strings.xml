@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">InstagarmDemo</string>
+
+    <!--Signup and Login-->
+    <string name="name">Name </string>
+    <string name="password">Password </string>
+    <string name="email_id">Email </string>
+    <string name="register">Register </string>
+    <string name="update_profile">Update Profile </string>
+    <string name="success_update_msg">Successfully Updated</string>
+    <string name="login">Login </string>
+    <string name="fillDetail">Please fill all the details </string>
+    <string name="Create_Account">Create  New Account </string>
+    <string name="login_text">Already have an account <font fgcolor="blue">Login</font> ? </string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">My Reel</string>
+    <string name="hello_fragment">My Post</string>
+
+    <string name="editProfile">Edit Profile </string>
+    <string name="log_out">Log Out </string>
+    <string name="pass">Password: </string>
+    <string name="login_success"> Login Successful</string>
+    <string name="log_out_message">Are you sure you want to logout? </string>
+    <string name="log_in_invalid_user">Login invalid user </string>
+    <string name="log_in_invalid_credential">Login credential is invalid </string>
+    <string name="authentication_msg">Authentication Success </string>
+    <string name="fill_info_msg">Please fill all information </string>
+    <string name="my_post">My Post </string>
+    <string name="my_reel">My Reel </string>
+    <string name="add_post">Add Post </string>
+    <string name="new_post">New Post </string>
+    <string name="instagram">Instagram </string>
+    <string name="new_reel">New Reel </string>
+    <string name="post_hint">Write a caption </string>
+    <string name="share_post"> Share </string>
+    <string name="share_cancel">Cancel </string>
+    <string name="unfollow">Unfollow </string>
+    <string name="follow">Follow </string>
+    <string name="upload_validation_msg">Please Upload Image First </string>
+
+</resources>

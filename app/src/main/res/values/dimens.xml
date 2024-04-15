@@ -1,0 +1,37 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="theme3_list_bottom_margin">5dp</dimen>
+
+
+
+    <dimen name="text_07">@dimen/_7ssp</dimen>
+    <dimen name="text_08">@dimen/_8ssp</dimen>
+    <dimen name="text_09">@dimen/_9ssp</dimen>
+    <dimen name="text_10">@dimen/_10ssp</dimen>
+    <dimen name="text_11">@dimen/_11ssp</dimen>
+    <dimen name="text_12">@dimen/_12ssp</dimen>
+    <dimen name="text_13">@dimen/_13ssp</dimen>
+    <dimen name="text_14">@dimen/_14ssp</dimen>
+    <dimen name="text_15">@dimen/_15ssp</dimen>
+    <dimen name="text_16">@dimen/_16ssp</dimen>
+    <dimen name="text_17">@dimen/_17ssp</dimen>
+    <dimen name="text_18">@dimen/_18ssp</dimen>
+    <dimen name="text_19">@dimen/_19ssp</dimen>
+    <dimen name="text_20">@dimen/_20ssp</dimen>
+    <dimen name="text_21">@dimen/_21ssp</dimen>
+    <dimen name="text_22">@dimen/_22ssp</dimen>
+    <dimen name="text_24">@dimen/_24ssp</dimen>
+
+
+    <dimen name="buttonHeight">@dimen/_50sdp</dimen>
+    <dimen name="buttonWidth">@dimen/_275sdp</dimen>
+    <dimen name="viewMarginStart">@dimen/_16sdp</dimen>
+
+
+
+
+
+
+
+
+</resources>
