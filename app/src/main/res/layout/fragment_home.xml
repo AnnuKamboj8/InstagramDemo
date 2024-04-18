@@ -28,41 +28,30 @@
         android:id="@+id/homePostRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/_105sdp"
-
-        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_115sdp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:layout_height="wrap_content">
 
-            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/story_profile_image"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
-                android:layout_marginTop="@dimen/_50sdp"
-                android:src="@drawable/profile"
-                app:layout_constraintBottom_toTopOf="homePostRecyclerView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
-                android:layout_marginTop="@dimen/_75ssp"
-                android:src="@drawable/ic_plus"
-                app:layout_constraintBottom_toBottomOf="story_profile_image"
-                app:layout_constraintEnd_toEndOf="@id/story_profile_image"
-                app:layout_constraintTop_toTopOf="parent" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/storyRecyclerView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_190sdp"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginTop="@dimen/_50sdp"
+                   app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -14,7 +14,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_100sdp">
 
-            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/profile_image"
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="@dimen/_50sdp"
@@ -22,18 +23,19 @@
                 android:src="@drawable/profile"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/profileTextView"
-                android:layout_width="@dimen/_80sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_30sdp"
-                android:text="Name"
-                android:textSize="@dimen/_15ssp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@id/profile_image"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/profileTextView"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:text="Name"
+            android:textSize="@dimen/_15ssp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/profile_image"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/bioTextView"

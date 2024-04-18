@@ -22,7 +22,8 @@
     <dimen name="text_22">@dimen/_22ssp</dimen>
     <dimen name="text_24">@dimen/_24ssp</dimen>
 
-
+    <dimen name="borderWidth">3dp</dimen>
+    <dimen name="after_click_borderWidth">2dp</dimen>
     <dimen name="buttonHeight">@dimen/_50sdp</dimen>
     <dimen name="buttonWidth">@dimen/_275sdp</dimen>
     <dimen name="viewMarginStart">@dimen/_16sdp</dimen>

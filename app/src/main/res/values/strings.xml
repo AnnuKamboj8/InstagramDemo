@@ -39,5 +39,6 @@
     <string name="unfollow">Unfollow </string>
     <string name="follow">Follow </string>
     <string name="upload_validation_msg">Please Upload Image First </string>
+    <string name="add_story">Add Story</string>
 
 </resources>

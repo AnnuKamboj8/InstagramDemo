@@ -56,7 +56,7 @@ class ReelsActivity : AppCompatActivity() {
                 var user = it.toObject<UserModel>()
                 val reel: Reel = Reel(videoUrl!!,
                     binding.caption.editableText.toString(),
-                    user!!.image,
+                    user!!.image!!,
                     user.name,
                     user.uid
                 )

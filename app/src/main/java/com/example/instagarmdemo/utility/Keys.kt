@@ -8,4 +8,10 @@ object Keys {
     const val POST= "Post"
     const val REEL= "Reel"
     const val FOLLOW= "Follow"
+    const val STORY= "Story"
+    const val STORY_FOLDER= "StoryImages"
+    const val FROM_STORY= "fromStory"
+    const val STORY_IMAGE_URL= "story_image_url"
+
+
 }

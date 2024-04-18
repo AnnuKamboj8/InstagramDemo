@@ -14,13 +14,17 @@
         android:theme="@style/Theme.InstagarmDemo"
         tools:targetApi="31">
         <activity
-            android:name=".ui.post.ReelsActivity"
+            android:name=".ui.post.StoryViewActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
         <activity
+            android:name=".ui.post.ReelsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
             android:name=".ui.post.PostActivity"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".ui.home.HomeActivity"
             android:exported="false" />
