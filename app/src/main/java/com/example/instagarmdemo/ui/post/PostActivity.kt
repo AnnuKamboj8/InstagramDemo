@@ -54,7 +54,7 @@ class PostActivity : AppCompatActivity() {
                         binding.postImage.setImageURI(uri)
                         imageUrl = url
 
-                        updateHasAddedStory(imageUrl.toString())
+
 
                     }
                 }
@@ -76,10 +76,10 @@ class PostActivity : AppCompatActivity() {
                             time = System.currentTimeMillis().toString(),
                             storyId = UUID.randomUUID().toString()
                         )
-                            user.storyTime=story.time
+
                         Firebase.firestore.collection(Keys.STORY).document().set(story)
                             .addOnSuccessListener {
-                              //  updateHasAddedStory(imageUrl.toString())
+                               updateHasAddedStory(imageUrl.toString())
                                 startActivity(Intent(this, HomeActivity::class.java))
                                 finish()
                                 /* Firebase.firestore.collection(FirebaseAuth.getInstance().currentUser!!.uid)
@@ -116,7 +116,7 @@ class PostActivity : AppCompatActivity() {
                     )
                     userDocRef.update(updates)
                         .addOnSuccessListener {
-                            // Successfully updated hasAddedStory field and storyImageUrl
+
                         }
                         .addOnFailureListener { exception ->
                             // Handle failure to update fields
@@ -185,6 +185,7 @@ class PostActivity : AppCompatActivity() {
             }
 
             binding.cancelButton.setOnClickListener {
+                imageUrl = null
                 startActivity(Intent(this, HomeActivity::class.java))
                 finish()
             }

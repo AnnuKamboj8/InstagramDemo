@@ -34,6 +34,7 @@ class HomeFragment : Fragment() {
     private lateinit var adapter: HomePostAdapter
 
     private var postList = ArrayList<Post>()
+    private var storyList = ArrayList<Story>()
     private var followList = ArrayList<UserModel>()
 
     private lateinit var storyAdapter: StoryRvAdapter
@@ -50,9 +51,13 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+
+
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.postProgressBar.visibility= View.VISIBLE
         setupPostRecyclerView()
         setupStoryRecyclerView()
         observeViewModel()
@@ -65,12 +70,24 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupStoryRecyclerView() {
-        storyAdapter = StoryRvAdapter(requireContext(), followList)
-        binding.storyRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        storyAdapter = StoryRvAdapter(requireContext(), storyList)
+        binding.storyRecyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.storyRecyclerView.adapter = storyAdapter
-    }
 
- /*   private fun fetchFollowedUsers() {
+        /* Firebase.firestore.collection(Keys.STORY)
+            .whereEqualTo("uid", FirebaseAuth.getInstance().currentUser!!.uid)
+            .get()
+            .addOnSuccessListener { storySnapshot ->
+                val currentUserStory = storySnapshot.toObjects<Story>()
+             //   storyAdapter.updateCurrentUserStory(currentUserStory)
+            }
+            .addOnFailureListener { exception ->
+                // Handle failure
+            }
+    }
+*/
+        /*   private fun fetchFollowedUsers() {
         Firebase.firestore.collection(Firebase.auth.currentUser!!.uid + Keys.FOLLOW)
             .get()
             .addOnSuccessListener { followSnapshot ->
@@ -90,23 +107,19 @@ class HomeFragment : Fragment() {
     }*/
 
 
+    }
 
     private fun observeViewModel() {
-        viewModel.fetchPosts()
-        viewModel.postList.observe(viewLifecycleOwner) { posts ->
-            postList.clear()
-            postList.addAll(posts)
-            adapter.notifyDataSetChanged()
+
+        viewModel.fetchPostsAndStories()
+        viewModel.postsLiveData.observe(viewLifecycleOwner) { postList ->
+           binding.postProgressBar.visibility= View.GONE
+            adapter.updatePosts(postList)
             loadLikeStates()
         }
-
-        viewModel.fetchFollowedUsers()
-       
-        viewModel.followedList.observe(viewLifecycleOwner){storyFollowUser ->
-            followList.clear()
-            followList.addAll(storyFollowUser)
-            storyAdapter.notifyDataSetChanged()
-
+        viewModel.storiesLiveData.observe(viewLifecycleOwner) { storyList->
+            Log.d("TAG", "storyList: ${storyList.size}")
+            storyAdapter.updatePosts(storyList)
         }
     }
 

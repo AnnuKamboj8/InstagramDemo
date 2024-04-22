@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.instagarmdemo.R
 import com.example.instagarmdemo.databinding.FragmentSearchBinding
 import com.example.instagarmdemo.ui.adapter.SearchAdapter
 import com.example.instagarmdemo.ui.Models.UserModel
@@ -17,6 +19,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
+import timber.log.Timber
 
 
 class SearchFragment : Fragment() {
@@ -36,6 +39,7 @@ class SearchFragment : Fragment() {
     ): View? {
 
         binding = FragmentSearchBinding.inflate(inflater, container, false)
+
         binding.searchRecyclerView.layoutManager=LinearLayoutManager(requireContext())
         adapter= SearchAdapter(requireContext(),userList)
         binding.searchRecyclerView.adapter=adapter
@@ -66,7 +70,12 @@ class SearchFragment : Fragment() {
     private fun searchUsers(query: String) {
         viewModel.searchUsers(query,
             onSuccess = { userList ->
-                adapter.updateData(userList)
+                binding.searchProgressBar.visibility=View.GONE
+
+                    adapter.updateData(userList)
+                    adapter.notifyDataSetChanged()
+                   setEmptyView()
+
             },
             onFailure = {
                 // Handle failure, if needed
@@ -77,6 +86,7 @@ class SearchFragment : Fragment() {
     private fun loadAllUsers() {
         viewModel.loadAllUsers(
             onSuccess = { userList ->
+                binding.searchProgressBar.visibility=View.GONE
                 adapter.updateData(userList)
             },
             onFailure = {
@@ -84,7 +94,19 @@ class SearchFragment : Fragment() {
             }
         )
     }
+
+
+    private fun setEmptyView() {
+        if (adapter.itemCount == 0) {
+            binding.tvNoData?.visibility = View.VISIBLE
+        } else {
+            binding.tvNoData?.visibility = View.GONE
+
+        }
+    }
 }
+
+
 
 
 /* binding.searchView.setOnSearchClickListener {

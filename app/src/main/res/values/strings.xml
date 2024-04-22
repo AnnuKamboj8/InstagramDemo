@@ -40,5 +40,6 @@
     <string name="follow">Follow </string>
     <string name="upload_validation_msg">Please Upload Image First </string>
     <string name="add_story">Add Story</string>
+    <string name="no_user">No User found.</string>
 
 </resources>
