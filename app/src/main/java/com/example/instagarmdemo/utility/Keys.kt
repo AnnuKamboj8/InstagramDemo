@@ -12,6 +12,10 @@ object Keys {
     const val STORY_FOLDER= "StoryImages"
     const val FROM_STORY= "fromStory"
     const val STORY_IMAGE_URL= "story_image_url"
+    const val USER_NAME= "user_name"
+    const val USER_PROFILE_IMAGE_URL= "user_profile_image_url"
+    const val STORY_TIME= "story_time"
+
 
 
 }

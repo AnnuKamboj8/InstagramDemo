@@ -106,35 +106,53 @@ class HomeViewModel : ViewModel() {
         return suspendCoroutine { continuation ->
             val currentTime: Long = System.currentTimeMillis()
 
-            Firebase.firestore.collection(Keys.STORY)
-                .whereEqualTo("uid", uid)
+            Firebase.firestore.collection(Keys.USER_NODE)
+                .document(uid)
                 .get()
-                .addOnSuccessListener { storySnapshot ->
-                    val tempList = ArrayList<Story>()
-                    for (storyDocument in storySnapshot.documents) {
-                        val storyData = storyDocument.data
-                        val timeString = storyData?.get("time") as? String
+                .addOnSuccessListener { userSnapshot ->
+                    val user: UserModel? = userSnapshot.toObject<UserModel>()
+                    user?.let { userModel ->
+                        if (userModel.hasAddedStory) {
+                            Firebase.firestore.collection(Keys.STORY)
+                                .whereEqualTo("uid", uid)
+                                .get()
+                                .addOnSuccessListener { storySnapshot ->
+                                    val tempList = ArrayList<Story>()
+                                    for (storyDocument in storySnapshot.documents) {
+                                        val storyData = storyDocument.data
+                                        val timeString = storyData?.get("time") as? String
 
-                        if (!timeString.isNullOrEmpty()) {
-                            val storyTime = timeString.toLongOrNull()
+                                        if (!timeString.isNullOrEmpty()) {
+                                            val storyTime = timeString.toLongOrNull()
 
-                            if (storyTime != null) {
-                                val timeDifference = currentTime - storyTime
-                                if (timeDifference <= (24 * 60 * 60 * 1000)) {
-                                    val story: Story = storyDocument.toObject<Story>()!!
-                                    tempList.add(story)
+                                            if (storyTime != null) {
+                                                val timeDifference = currentTime - storyTime
+                                                if (timeDifference <= (24 * 60 * 60 * 1000)) {
+                                                    val story: Story = storyDocument.toObject<Story>()!!
+                                                    tempList.add(story)
+                                                }
+                                            }
+                                        }
+                                    }
+                                    continuation.resume(tempList)
                                 }
-                            }
+                                .addOnFailureListener { exception ->
+                                    Log.e("HomeFragment", "Error getting stories: $exception")
+                                    continuation.resumeWithException(exception)
+                                }
+                        } else {
+                            // If the user doesn't have a story, return an empty list
+                            continuation.resume(emptyList())
                         }
                     }
-                    continuation.resume(tempList)
                 }
                 .addOnFailureListener { exception ->
-                    Log.e("HomeFragment", "Error getting stories: $exception")
+                    Log.e("HomeFragment", "Error getting user data: $exception")
                     continuation.resumeWithException(exception)
                 }
         }
     }
+
 
 }
 

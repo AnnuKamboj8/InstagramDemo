@@ -55,8 +55,9 @@ class StoryRvAdapter(private val context: Context, private val storyList: ArrayL
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder.itemViewType) {
             VIEW_TYPE_PROFILE -> {
+             
                 val profileHolder = holder as ProfileViewHolder
-             //   val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
+
                 val currentUserStory = storyList.find { it.uid == FirebaseAuth.getInstance().currentUser?.uid }
 
                 currentUserStory?.let { story ->
@@ -64,7 +65,7 @@ class StoryRvAdapter(private val context: Context, private val storyList: ArrayL
                         .load(story.storyUrl)
                         .into(profileHolder.binding.storyProfileUserImage)
                 }
-                    // Check if the story has expired
+
                 val currentTime = System.currentTimeMillis()
 
                 Firebase.firestore.collection(Keys.USER_NODE)
@@ -77,33 +78,41 @@ class StoryRvAdapter(private val context: Context, private val storyList: ArrayL
                                 Glide.with(context).load(it.image)
                                     .into(profileHolder.binding.storyProfileUserImage)
 
-                                if (it.hasAddedStory && (currentTime - (it.storyTime?.toLongOrNull() ?: 0)) > (24 * 60 * 60 * 1000)) {
+                                if (it.hasAddedStory && (currentTime - (it.storyTime?.toLongOrNull() ?: 0)) < (24 * 60 * 60 * 1000)) {
+                                    // Story added and still valid
                                     profileHolder.binding.plusIcon.visibility = View.GONE
                                     profileHolder.binding.storyProfileUserImage.borderColor = ContextCompat.getColor(context, R.color.green)
                                     profileHolder.binding.storyProfileUserImage.borderWidth = context.resources.getDimensionPixelSize(R.dimen.borderWidth)
-                                } else{
+                                } else {
+                                    // No story added or story expired
                                     profileHolder.binding.plusIcon.visibility = View.VISIBLE
                                 }
+
+
                                 profileHolder.binding.storyProfileUserImage.setOnClickListener { view ->
-
-                                    if (it.hasAddedStory &&  ((currentTime - (it.storyTime?.toLongOrNull() ?: 0)) > (24 * 60 * 60 * 1000))) {
-
+                                    if (it.hasAddedStory && ((currentTime - (it.storyTime?.toLongOrNull() ?: 0)) < (24 * 60 * 60 * 1000))) {
+                                        // Story added and still valid
                                         profileHolder.binding.plusIcon.visibility = View.GONE
                                         profileHolder.binding.storyProfileUserImage.borderColor = ContextCompat.getColor(context, R.color.subTextHint)
                                         profileHolder.binding.storyProfileUserImage.borderWidth = context.resources.getDimensionPixelSize(R.dimen.after_click_borderWidth)
-                                     //   Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show()
+
                                         val intent = Intent(context, StoryViewActivity::class.java)
                                         intent.putExtra(Keys.STORY_IMAGE_URL, it.storyImageUrl)
+                                        intent.putExtra(Keys.USER_NAME, it.name)
+                                        intent.putExtra(Keys.USER_PROFILE, it.image)
+                                        intent.putExtra(Keys.STORY_TIME, it.storyTime)
+                                      //  Toast.makeText(context, "it.storyTimeADapter${it.storyTime}", Toast.LENGTH_SHORT).show()
                                         context.startActivity(intent)
-                                    }
-                                    else {
-                                        user.hasAddedStory= false
+                                    } else {
+
+                                        user.hasAddedStory = false
                                         profileHolder.binding.plusIcon.visibility = View.VISIBLE
-                                        Toast.makeText(context, "no story", Toast.LENGTH_SHORT).show()
+
+                                     //   Toast.makeText(context, "No story added", Toast.LENGTH_SHORT).show()
+
                                         val intent = Intent(context, PostActivity::class.java)
                                         intent.putExtra(Keys.FROM_STORY, true)
-                                        ContextCompat.startActivity(context, intent, null)
-
+                                        context.startActivity(intent)
                                     }
                                 }
                             }
@@ -111,9 +120,13 @@ class StoryRvAdapter(private val context: Context, private val storyList: ArrayL
                     }
             }
 
+
             VIEW_TYPE_LIST -> {
 
                 val listHolder = holder as ListViewHolder
+                var userName: String = ""
+                var userProfile: String = ""
+                var userStoryTime: String = ""
                 val currentUser = if (position == 0) {
                     storyList[0]
                 } else {
@@ -130,6 +143,9 @@ class StoryRvAdapter(private val context: Context, private val storyList: ArrayL
                                 .placeholder(R.drawable.profile)
                                 .into(listHolder.binding.storyProfileImage)
                             listHolder.binding.storyProfileName.text = user.name
+                            userName= it.name
+                            userProfile= it.image.toString()
+                            userStoryTime=it.storyTime
                         }
                     }
                     .addOnFailureListener { exception ->
@@ -145,6 +161,9 @@ class StoryRvAdapter(private val context: Context, private val storyList: ArrayL
                         listHolder.binding.storyProfileImage.borderColor = ContextCompat.getColor(context, R.color.subTextHint)
                         val intent = Intent(context, StoryViewActivity::class.java)
                         intent.putExtra(Keys.STORY_IMAGE_URL, currentUser.storyUrl)
+                        intent.putExtra(Keys.USER_NAME,userName)
+                        intent.putExtra(Keys.USER_PROFILE, userProfile)
+                        intent.putExtra(Keys.STORY_TIME, userStoryTime)
                         context.startActivity(intent)
                 }
             }

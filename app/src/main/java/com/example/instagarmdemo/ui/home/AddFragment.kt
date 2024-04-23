@@ -11,6 +11,7 @@ import com.example.instagarmdemo.databinding.FragmentAddBinding
 import com.example.instagarmdemo.databinding.FragmentMyPostBinding
 import com.example.instagarmdemo.ui.post.PostActivity
 import com.example.instagarmdemo.ui.post.ReelsActivity
+import com.example.instagarmdemo.utility.Keys
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
@@ -35,6 +36,12 @@ class AddFragment : BottomSheetDialogFragment() {
         binding.reelsLl.setOnClickListener{
             activity?.startActivity(Intent(requireContext(),ReelsActivity::class.java))
               dismiss()
+        }
+        binding.storyLl.setOnClickListener{
+            val intent = Intent(requireContext(), PostActivity::class.java)
+            intent.putExtra(Keys.FROM_STORY, true)
+            activity?.startActivity(intent)
+            dismiss()
         }
         return binding.root
     }

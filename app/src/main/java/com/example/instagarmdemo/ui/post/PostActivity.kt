@@ -77,9 +77,10 @@ class PostActivity : AppCompatActivity() {
                             storyId = UUID.randomUUID().toString()
                         )
 
+
                         Firebase.firestore.collection(Keys.STORY).document().set(story)
                             .addOnSuccessListener {
-                               updateHasAddedStory(imageUrl.toString())
+                               updateHasAddedStory(imageUrl.toString(),System.currentTimeMillis().toString())
                                 startActivity(Intent(this, HomeActivity::class.java))
                                 finish()
                                 /* Firebase.firestore.collection(FirebaseAuth.getInstance().currentUser!!.uid)
@@ -102,7 +103,7 @@ class PostActivity : AppCompatActivity() {
 
     }
 
-    private fun updateHasAddedStory(imageUrl:String) {
+    private fun updateHasAddedStory(imageUrl:String,storyTime:String) {
         val currentUserUid = FirebaseAuth.getInstance().currentUser!!.uid
         val userDocRef = Firebase.firestore.collection(Keys.USER_NODE).document(currentUserUid)
 
@@ -112,7 +113,8 @@ class PostActivity : AppCompatActivity() {
                 user?.let { userModel ->
                     val updates = mapOf(
                         "hasAddedStory" to true,
-                        "storyImageUrl" to imageUrl
+                        "storyImageUrl" to imageUrl,
+                        "storyTime" to storyTime
                     )
                     userDocRef.update(updates)
                         .addOnSuccessListener {
@@ -147,6 +149,7 @@ class PostActivity : AppCompatActivity() {
                         if (url != null) {
                             binding.postImage.setImageURI(uri)
                             imageUrl = url
+
 
                         }
                     }
