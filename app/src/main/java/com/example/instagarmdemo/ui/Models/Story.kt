@@ -5,6 +5,7 @@ class Story {
     var storyId: String = ""
     var uid: String = ""
     var time: String = ""
+    var viewed: Boolean = false
 
 
     constructor()
