@@ -194,8 +194,7 @@ class StoryRvAdapter(private val context: Context, private val storyList: ArrayL
 
                 val db = Firebase.firestore
                 val userId = FirebaseAuth.getInstance().currentUser?.uid
-
-                // Get the collection reference for viewed stories of the current user
+                
                 val viewedStoriesCollection =
                     db.collection("ViewedStoryUsers").document(userId ?: "")
                         .collection("ViewedStoryUsers")

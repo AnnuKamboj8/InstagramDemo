@@ -1,14 +1,15 @@
 package com.example.instagarmdemo.extension
 
 import android.app.ProgressDialog
-import android.content.Context
-import android.net.Uri
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
-import com.google.firebase.ktx.Firebase
+import androidx.core.net.toFile
 import com.google.firebase.storage.FirebaseStorage
+import java.io.File
 import java.util.*
+import android.content.Context
+import android.net.Uri
+
 
 class CommonExtension {
 }
@@ -27,7 +28,6 @@ fun uploadImage(uri: Uri, folderName:String, callback:(String?)->Unit){
                 callback(imageUri)
             }
         }
-
 }
 
 fun uploadReels(uri: Uri, folderName:String,progressDialog :ProgressDialog ,callback:(String?)->Unit){
@@ -48,9 +48,7 @@ fun uploadReels(uri: Uri, folderName:String,progressDialog :ProgressDialog ,call
             val uploadVideo:Long =( it.bytesTransferred / it.totalByteCount)*100
             progressDialog.setMessage("Uploaded $uploadVideo%")
         }
-
 }
-
 fun SearchView.onTextChanged(block: (query: String, isEmpty: Boolean) -> Unit) {
     this.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(query: String?): Boolean {
@@ -74,8 +72,5 @@ fun SearchView.onTextChanged(block: (query: String, isEmpty: Boolean) -> Unit) {
             }
             return false
         }
-
     })
-
-
 }
