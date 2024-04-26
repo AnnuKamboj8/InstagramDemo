@@ -16,12 +16,13 @@ class Post {
         this.caption = caption
     }
 
-    constructor(postUrl: String, caption: String, uid: String, time: String)
+    constructor(postUrl: String, caption: String, uid: String, time: String,postId: String)
     {
         this.postUrl = postUrl
         this.caption = caption
         this.uid = uid.toString()
         this.time = time
+        this.postId=postId
 
     }
 

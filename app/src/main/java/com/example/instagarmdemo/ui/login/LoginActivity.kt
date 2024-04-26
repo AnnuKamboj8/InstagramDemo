@@ -39,11 +39,16 @@ class LoginActivity : AppCompatActivity() {
         })
 
         binding.loginButton.setOnClickListener {
-            val email = binding.etEmailId.text.toString()
-            val password = binding.etPassword.text.toString()
-            viewModel.signIn(email, password)
+            if (binding.etEmailId.text.toString().equals("") or binding.etPassword.text.toString()
+                    .equals("")
+            ) {
+                showToast(getString(R.string.fillDetail))
+            } else {
+                val email = binding.etEmailId.text.toString()
+                val password = binding.etPassword.text.toString()
+                viewModel.signIn(email, password)
+            }
         }
-
         binding.createAccButton.setOnClickListener{
             startActivity(Intent(this, SignUpActivity::class.java))
         }

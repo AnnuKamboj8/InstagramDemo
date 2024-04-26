@@ -54,7 +54,7 @@
                 android:id="@+id/editProfileButton"
                 style="@style/profileButton"
                 android:layout_width="@dimen/_100sdp"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="15dp"
                 android:gravity="start|center_vertical"

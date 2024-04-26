@@ -163,13 +163,15 @@ class PostActivity : AppCompatActivity() {
                     .document(FirebaseAuth.getInstance().currentUser!!.uid).get()
                     .addOnSuccessListener {
                         val user = it.toObject<UserModel>()!!
+                        val postId = UUID.randomUUID().toString()
 
                         if (imageUrl != null) {
                             val post: Post = Post(
                                 postUrl = imageUrl!!,
                                 caption = binding.caption.editableText.toString(),
                                 uid = FirebaseAuth.getInstance().currentUser!!.uid,
-                                time = System.currentTimeMillis().toString()
+                                time = System.currentTimeMillis().toString(),
+                                postId = postId
                             )
 
                             Firebase.firestore.collection(Keys.POST).document().set(post)

@@ -51,7 +51,6 @@ class StoryRvAdapter(private val context: Context, private val storyList: ArrayL
                     StroryListItemBinding.inflate(LayoutInflater.from(context), parent, false)
                 ListViewHolder(binding)
             }
-
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
@@ -87,10 +86,7 @@ class StoryRvAdapter(private val context: Context, private val storyList: ArrayL
 
                                     profileHolder.binding.plusIcon.visibility = View.GONE
                                     if (it.viewedStory) {
-                                        profileHolder.binding.storyProfileUserImage.borderColor =
-                                            ContextCompat.getColor(context, R.color.subTextHint)
-                                        profileHolder.binding.storyProfileUserImage.borderWidth =
-                                            context.resources.getDimensionPixelSize(R.dimen.after_click_borderWidth)
+                                        setViewedBorder(profileHolder)
                                     } else {
                                         profileHolder.binding.storyProfileUserImage.borderColor =
                                             ContextCompat.getColor(context, R.color.green)
@@ -109,11 +105,9 @@ class StoryRvAdapter(private val context: Context, private val storyList: ArrayL
                                     ) {
                                         // Story added and still valid
                                         it.viewedStory = true
+
                                         profileHolder.binding.plusIcon.visibility = View.GONE
-                                        profileHolder.binding.storyProfileUserImage.borderColor =
-                                            ContextCompat.getColor(context, R.color.subTextHint)
-                                        profileHolder.binding.storyProfileUserImage.borderWidth =
-                                            context.resources.getDimensionPixelSize(R.dimen.after_click_borderWidth)
+                                        setViewedBorder(profileHolder)
 
                                         Firebase.firestore.collection(Keys.USER_NODE)
                                             .document(FirebaseAuth.getInstance().currentUser!!.uid)
@@ -146,7 +140,6 @@ class StoryRvAdapter(private val context: Context, private val storyList: ArrayL
                                             .addOnFailureListener { e ->
                                                 // Handle any errors
                                             }
-
                                         //   Toast.makeText(context, "No story added", Toast.LENGTH_SHORT).show()
 
                                         val intent = Intent(context, PostActivity::class.java)
@@ -156,6 +149,7 @@ class StoryRvAdapter(private val context: Context, private val storyList: ArrayL
                                 }
                             }
                         }
+
                     }
             }
 
@@ -194,7 +188,7 @@ class StoryRvAdapter(private val context: Context, private val storyList: ArrayL
 
                 val db = Firebase.firestore
                 val userId = FirebaseAuth.getInstance().currentUser?.uid
-                
+
                 val viewedStoriesCollection =
                     db.collection("ViewedStoryUsers").document(userId ?: "")
                         .collection("ViewedStoryUsers")
@@ -206,23 +200,15 @@ class StoryRvAdapter(private val context: Context, private val storyList: ArrayL
                             val viewed = document.getBoolean("viewedStory") ?: false
 
                             if (viewed) {
-                                listHolder.binding.storyProfileImage.borderColor =
-                                    ContextCompat.getColor(context, R.color.subTextHint)
-                                listHolder.binding.storyProfileImage.borderWidth =
-                                    context.resources.getDimensionPixelSize(R.dimen.after_click_borderWidth)
+                                setViewedBorder(listHolder)
+
                             } else {
 
-                                listHolder.binding.storyProfileImage.borderColor =
-                                    ContextCompat.getColor(context, R.color.highlight_pink)
-                                listHolder.binding.storyProfileImage.borderWidth =
-                                    context.resources.getDimensionPixelSize(R.dimen.borderWidth)
+                                setUnViewedBorder(listHolder)
                             }
                         } else {
 
-                            listHolder.binding.storyProfileImage.borderColor =
-                                ContextCompat.getColor(context, R.color.highlight_pink)
-                            listHolder.binding.storyProfileImage.borderWidth =
-                                context.resources.getDimensionPixelSize(R.dimen.borderWidth)
+                           setUnViewedBorder(listHolder)
                         }
                     }
                     .addOnFailureListener { exception ->
@@ -231,10 +217,7 @@ class StoryRvAdapter(private val context: Context, private val storyList: ArrayL
 
                 listHolder.binding.storyProfileImage.setOnClickListener {
                     updateViewedState(userId ?: "", currentUser.storyId)
-                    listHolder.binding.storyProfileImage.borderWidth =
-                        context.resources.getDimensionPixelSize(R.dimen.after_click_borderWidth)
-                    listHolder.binding.storyProfileImage.borderColor =
-                        ContextCompat.getColor(context, R.color.subTextHint)
+                    setViewedBorder(listHolder)
                     val intent = Intent(context, StoryViewActivity::class.java)
                     intent.putExtra(Keys.STORY_IMAGE_URL, currentUser.storyUrl)
                     intent.putExtra(Keys.USER_NAME, userName)
@@ -278,6 +261,50 @@ class StoryRvAdapter(private val context: Context, private val storyList: ArrayL
             VIEW_TYPE_LIST
         }
     }
+
+
+    private fun setViewedBorder(holder: RecyclerView.ViewHolder) {
+        val context = holder.itemView.context
+        val resources = context.resources
+        when (holder) {
+            is ProfileViewHolder -> {
+
+                holder.binding.storyProfileUserImage.borderColor =
+                    ContextCompat.getColor(context, R.color.subTextHint)
+                holder.binding.storyProfileUserImage.borderWidth =
+                    resources.getDimensionPixelSize(R.dimen.after_click_borderWidth)
+            }
+            is ListViewHolder -> {
+                holder.binding.storyProfileImage.borderColor =
+                    ContextCompat.getColor(context, R.color.subTextHint)
+                holder.binding.storyProfileImage.borderWidth =
+                    context.resources.getDimensionPixelSize(R.dimen.after_click_borderWidth)
+            }
+            else -> throw IllegalArgumentException("Unsupported ViewHolder type: ${holder.javaClass.simpleName}")
+        }
+    }
+
+    private fun setUnViewedBorder(holder: RecyclerView.ViewHolder) {
+        val context = holder.itemView.context
+        val resources = context.resources
+        when (holder) {
+            is ProfileViewHolder -> {
+
+                holder.binding.storyProfileUserImage.borderColor =
+                    ContextCompat.getColor(context, R.color.highlight_pink)
+                holder.binding.storyProfileUserImage.borderWidth =
+                    resources.getDimensionPixelSize(R.dimen.borderWidth)
+            }
+            is ListViewHolder -> {
+                holder.binding.storyProfileImage.borderColor =
+                    ContextCompat.getColor(context, R.color.highlight_pink)
+                holder.binding.storyProfileImage.borderWidth =
+                    resources.getDimensionPixelSize(R.dimen.borderWidth)
+            }
+            else -> throw IllegalArgumentException("Unsupported ViewHolder type: ${holder.javaClass.simpleName}")
+        }
+    }
+
 
     fun updatePosts(newPosts: List<Story>) {
         val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
