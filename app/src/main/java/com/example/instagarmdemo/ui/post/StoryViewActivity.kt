@@ -3,6 +3,7 @@ package com.example.instagarmdemo.ui.post
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.MotionEvent
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +21,7 @@ class StoryViewActivity : AppCompatActivity() {
     private var storyDuration = 4000
     private var seekBarUpdateInterval = 100
     private var currentProgress = 0
-
+    private var isPaused = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,27 +50,39 @@ class StoryViewActivity : AppCompatActivity() {
         binding.usernameTextView.text=name
         binding.seekBar.max = storyDuration
         startSeekBarUpdate()
-        Handler(Looper.getMainLooper()).postDelayed({
-            finish()
-        }, storyDuration.toLong())
+        binding.storyImageView.setOnTouchListener { _, event ->
+            handleTouchEvent(event)
+        }
     }
 
     private fun startSeekBarUpdate() {
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed(object : Runnable {
             override fun run() {
+                if (!isPaused) {
+                    binding.seekBar.progress = currentProgress
+                    currentProgress += seekBarUpdateInterval
 
-                binding.seekBar.progress = currentProgress
-                currentProgress += seekBarUpdateInterval
-
-                handler.postDelayed(this, seekBarUpdateInterval.toLong())
-
-
-                if (currentProgress >= storyDuration) {
-                    handler.removeCallbacks(this)
+                    if (currentProgress >= storyDuration) {
+                        handler.removeCallbacks(this)
+                        finish()
+                    }
                 }
+                handler.postDelayed(this, seekBarUpdateInterval.toLong())
             }
         }, seekBarUpdateInterval.toLong())
+    }
+
+    private fun handleTouchEvent(event: MotionEvent): Boolean {
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                isPaused = true
+            }
+            MotionEvent.ACTION_UP -> {
+                isPaused = false
+            }
+        }
+        return true
     }
 
 
